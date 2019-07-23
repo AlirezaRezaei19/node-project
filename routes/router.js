@@ -12,21 +12,30 @@ router.post('/', function (req, res) {
     });
     sendPoint.save().then(result => {
         console.log(result);
+        res.status(201).json({
+            messeage : 'your response arrived',
+            point : result,
+        });
     })
-    .catch(err => console.log(err)) ;
-    
-    res.status(201).json({
-        messeage : 'your response arrived',
-        point : sendPoint,
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+            err : err
+        });
     });
+
 });
+
 router.get('/records', function(req, res) {
     Device.find().exec().then(docs => {
         console.log(docs);
         res.status(200).json(docs);
     }).catch(err => {
         console.log(err);
-    })
+        res.status(500).json({
+            err : err
+        });
+    });
   });
 
 
