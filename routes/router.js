@@ -27,7 +27,7 @@ router.post('/', function (req, res) {
 });
 
 router.get('/records', function(req, res) {
-    Device.find().exec().then(docs => {
+    Device.find().select('date').exec().then(docs => {
         console.log(docs);
         res.status(200).json(docs);
     }).catch(err => {
